@@ -1,7 +1,7 @@
-package com.cache.tmap;
+package tmap;
 
 /**
- * User: chenhf
+ * User: oooooooz
  * Date: 2016/5/31
  * Time: 19:35
  */

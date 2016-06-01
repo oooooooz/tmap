@@ -1,11 +1,11 @@
-package com.cache.tmap;
+package tmap;
 
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Set;
 
 /**
- * User: chenhf
+ * User: oooooooz
  * Date: 2016/5/31
  * Time: 15:41
  */

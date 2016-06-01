@@ -1,63 +1,46 @@
-import com.cache.tmap.TimeoutMap;
-import com.cache.tmap.TimeoutMapCronServer;
+import tmap.TimeoutMap;
+import tmap.TimeoutMapCronServer;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- * author: ff
- * Date: 2016/6/1
+ * author: oooooooz
+ * Date: 2016/6/2
  */
 public class TestTimeoutMap {
 
     public static void main(String[] args) throws Exception{
 
-        TimeoutMapCronServer server =  TimeoutMapCronServer.getInstance();
-
-        server.startTimeoutMapCronServer();
-
+        //start server
+        TimeoutMapCronServer.getInstance().startTimeoutMapCronServer();
 
         int time1 = 0;
-        for(;++time1 < 30;){
-            final TimeoutMap<HashMap>  timeoutMap = new TimeoutMap<HashMap>(time1*2,HashMap.class,TimeUnit.SECONDS);
+        for(;++time1 < 10;){
+            final TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(time1*2,HashMap.class, TimeUnit.SECONDS);
             new Thread(){
                 public void run(){
-                    for(int k = 0;k < 100;k++){
+                    for(int k = 0; k < 30;k++){
                         timeoutMap.put(k,k);
                     }
                 }
             }.start();
         }
 
-        TimeUnit.SECONDS.sleep(5);
-
-        for(;++time1 < 45;){
-            final TimeoutMap<HashMap>  timeoutMap = new TimeoutMap<HashMap>(time1*2,HashMap.class,TimeUnit.SECONDS);
-            new Thread(){
-                public void run(){
-                    for(int k = 0;k < 10;k++){
-                        timeoutMap.put(k,k);
-                    }
-                }
-            }.start();
+        TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(20,HashMap.class, TimeUnit.SECONDS);
+        timeoutMap.put("[test put again]","again1");
+        TimeUnit.SECONDS.sleep(10);
+        int time = 0;
+        while (++time < ( time1 + 30 )){
+            System.out.println(time + " second pass...");
+            TimeUnit.SECONDS.sleep(1);
         }
 
-        TimeoutMap<HashMap>  timeoutMap = new TimeoutMap<HashMap>(10,HashMap.class,TimeUnit.SECONDS);
-        timeoutMap.put("[test add again]","test");
-        int time2 = 0;
-        while(++time2 < (time1*2 + 20)){
-            try {
-                System.out.println(time2 + " second pass ...");
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        timeoutMap.put("[test add again]","test");
-        TimeUnit.SECONDS.sleep(20);
-        timeoutMap.put("[test add again]","test2");
-        server.stopTimeoutMapCronServer();
+        timeoutMap.put("[test put again]","again2");
 
+        TimeUnit.SECONDS.sleep(30);
+        //stop
+        TimeoutMapCronServer.getInstance().stopTimeoutMapCronServer();
     }
 
 }

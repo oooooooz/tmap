@@ -1,4 +1,4 @@
-package com.cache.tmap;
+package tmap;
 
 
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
 /**
- * User: chenhf
+ * User: oooooooz
  * Date: 2016/5/31
  * Time: 20:04
  */

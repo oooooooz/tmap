@@ -1,10 +1,10 @@
-package com.cache.tmap;
+package tmap;
 
 import java.util.AbstractMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- * User: chenhf
+ * User: oooooooz
  * Date: 2016/5/31
  * Time: 17:03
  */
@@ -45,19 +45,24 @@ public class TimeoutMap<T extends AbstractMap> extends AbstractTimeoutMap<Timeou
      * @param value {@code value}
      */
     public void put(Object key ,Object value){
+
         if(key == null){
             throw new  UnsupportedOperationException("null key is not permit");
         }
+
         TimeoutMapContext context = TimeoutMapContext.contextInstance();
+
        synchronized (this){
            KeyContext<Object,Object> keyContext =
                    new KeyContext<Object,Object>(key,timeUnit.toNanos(timeout),
                            context.currentTime(),value);
+
            this.map.put(key,keyContext);
        }
 
-        //had removed
+        //may be removed yet
         if(!context.getNames().containsKey(this.name)){
+            System.out.println("--------------add again,name="+name);
             context.addLast(this);
         }
     }

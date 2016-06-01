@@ -1,4 +1,4 @@
-package com.cache.tmap;
+package tmap;
 
 
 import java.util.AbstractMap;
@@ -9,15 +9,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * User: chenhf
+ * User: oooooooz
  * Date: 2016/5/31
  * Time: 17:50
  */
 public class TimeoutMapContext{
 
-    private static final Map<String,Boolean> names =  new ConcurrentHashMap<String, Boolean>(4);
 
     private final AtomicLong ai = new AtomicLong(0);
+
+    private final Map<String,Boolean> names = new ConcurrentHashMap<String, Boolean>(4);
 
     private static TimeoutMapContext context = null;
 
@@ -55,11 +56,6 @@ public class TimeoutMapContext{
     }
 
 
-    final synchronized Map<String,Boolean> getNames(){
-        return names;
-    }
-
-
     //remove empty map
     final void remove(AbstractTimeoutMap emptyMap){
 
@@ -75,9 +71,7 @@ public class TimeoutMapContext{
             if(emptyMap.next != null){
                 emptyMap.next.pre = emptyMap.pre;
             }
-
             names.remove(emptyMap.getName());
-
         }
 
     }
@@ -90,6 +84,11 @@ public class TimeoutMapContext{
      }
 
 
+    final synchronized Map<String ,Boolean> getNames(){
+        return names;
+    }
+
+
      String addLast(AbstractTimeoutMap newMap){
 
          String name = null;
@@ -97,15 +96,17 @@ public class TimeoutMapContext{
         synchronized (this) {
 
             name = generateName(newMap.getClass());
+
+            if(names.containsKey(name)){
+                throw new IllegalStateException("Duplicate map name :" + name);
+            }
+
             AbstractTimeoutMap pre = tail.pre;
             newMap.next = tail;
             newMap.pre = pre;
             pre.next = newMap;
             tail.pre = newMap;
 
-            if(names.containsKey(name)){
-                throw new IllegalStateException("Duplicate map name: " + name);
-            }
             names.put(name,true);
         }
 
