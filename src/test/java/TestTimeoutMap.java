@@ -21,7 +21,7 @@ public class TestTimeoutMap {
 
         int time1 = 0;
 
-        for(; ++time1 < 10;) {
+        for(; ++time1 < 12;) {
 
             final TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(time1*5 + 10,HashMap.class,TimeUnit.SECONDS);
             new Thread(
