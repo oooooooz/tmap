@@ -21,16 +21,23 @@ public class TestTimeoutMap {
 
         int time1 = 0;
 
-        for(; ++time1 < 9;) {
+
+        for(; ++time1 < 10;) {
+
 
             final TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(time1*5 + 10,HashMap.class,TimeUnit.SECONDS);
-            new Thread(() -> {
-                for (int i = 0; i < 30; i++) {
-                    timeoutMap.put(i, i);
-                }
-            }).start();
-        }
+            new Thread(
 
+            ){
+                @Override
+                public void run() {
+                    for (int i = 0; i < 30; i++) {
+                        timeoutMap.put(i, i);
+                    }
+                }
+            }.start();
+        }
+        //master modify1
         TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(10,HashMap.class,TimeUnit.SECONDS);
 
         timeoutMap.put("12",server);
