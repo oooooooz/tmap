@@ -22,10 +22,10 @@ public class TestTimeoutMap {
         int time1 = 0;
 
 
-        for(; ++time1 < 10;) {
+        for(; ++time1 < 12;) {
 
 
-            final TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(time1*5 + 10,HashMap.class,TimeUnit.SECONDS);
+            final TimeoutMap<HashMap> timeoutMap = new TimeoutMap<>(time1 * 5 + 10, HashMap.class, TimeUnit.SECONDS);
             new Thread(
 
             ){
@@ -38,7 +38,7 @@ public class TestTimeoutMap {
             }.start();
         }
         //master modify1
-        TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(10,HashMap.class,TimeUnit.SECONDS);
+        TimeoutMap<HashMap> timeoutMap = new TimeoutMap<>(10, HashMap.class, TimeUnit.SECONDS);
 
         timeoutMap.put("12",server);
         System.out.println("---------value="+timeoutMap.get("12"));
