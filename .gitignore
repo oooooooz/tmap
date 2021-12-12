@@ -1,2 +1,23 @@
+*.class
+.DS_Store
+application.pid
 target
+
+# Idea
+.idea
 *.iml
+
+# Eclipse
+.classpath
+.project
+.settings
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# git
+*.orig
+.flattened-pom.xml
+
