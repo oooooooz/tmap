@@ -35,7 +35,7 @@ public class TestTimeoutMap {
                 }
             }.start();
         }
-
+        //master modify1
         TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(10,HashMap.class,TimeUnit.SECONDS);
 
         timeoutMap.put("12",server);
