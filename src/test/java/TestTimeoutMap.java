@@ -24,11 +24,16 @@ public class TestTimeoutMap {
         for(; ++time1 < 12;) {
 
             final TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(time1*5 + 10,HashMap.class,TimeUnit.SECONDS);
-            new Thread(() -> {
-                for (int i = 0; i < 30; i++) {
-                    timeoutMap.put(i, i);
+            new Thread(
+
+            ){
+                @Override
+                public void run() {
+                    for (int i = 0; i < 30; i++) {
+                        timeoutMap.put(i, i);
+                    }
                 }
-            }).start();
+            }.start();
         }
 
         TimeoutMap<HashMap> timeoutMap = new TimeoutMap<HashMap>(10,HashMap.class,TimeUnit.SECONDS);
