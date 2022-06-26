@@ -1,3 +1,4 @@
+
 import com.cache.tmap.TimeoutMap;
 import com.cache.tmap.TimeoutMapCronServer;
 
@@ -11,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class TestTimeoutMap {
 
     public static void main(String[] args)throws Exception{
-
 
         TimeoutMapCronServer server =  TimeoutMapCronServer.getInstance();
 
@@ -64,8 +64,4 @@ public class TestTimeoutMap {
         server.stopTimeoutMapCronServer();
 
     }
-
-
-
-
 }
